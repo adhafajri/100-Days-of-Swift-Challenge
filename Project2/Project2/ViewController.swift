@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(scoreTapped))
+        
         countries += ["estonia","france","germany","ireland","italy","monaco","nigeria","poland","russia","spain","uk","us"]
         
         button1.layer.borderWidth = 1
@@ -43,7 +45,7 @@ class ViewController: UIViewController {
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
         
-        title = "\(countries[correctAnswer].uppercased()) Score: \(score)"
+        title = "\(countries[correctAnswer].uppercased())"
         
         if questionCount > 10 {
             let ac = UIAlertController(title: "Game Over", message: "Your final score is \(score)", preferredStyle: .alert)
@@ -77,6 +79,13 @@ class ViewController: UIViewController {
         )
         ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
         present(ac, animated: true)
+    }
+    
+    @objc private func scoreTapped() {
+        let score = "Score: \(score)"
+        let vc = UIActivityViewController(activityItems: [score], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
 }
 
