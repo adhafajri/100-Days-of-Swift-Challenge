@@ -82,10 +82,13 @@ class ViewController: UIViewController {
     }
     
     @objc private func scoreTapped() {
-        let score = "Score: \(score)"
-        let vc = UIActivityViewController(activityItems: [score], applicationActivities: [])
-        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        present(vc, animated: true)
+        let ac = UIAlertController(
+            title: "Score",
+            message: "Your score is \(score)",
+            preferredStyle: .alert
+        )
+        ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+        present(ac, animated: true)
     }
 }
 
